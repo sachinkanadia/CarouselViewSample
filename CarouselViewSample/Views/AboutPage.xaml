@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CarouselViewSample.Views.AboutPage"
+             xmlns:etc="clr-namespace:CarouselViewSample.MVVM"
+             Title="{Binding Title}"
+             BindingContext="{Binding AboutViewModel, Source={StaticResource viewModelFactory}}">
+    <ContentPage.Behaviors>
+        <etc:EventToCommandBehavior
+            EventName="Appearing"
+            Command="{Binding AppearingCommand}"/>
+    </ContentPage.Behaviors>
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="Accent">#96d1ff</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackLayout BackgroundColor="{StaticResource Accent}" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+                <ContentView Padding="0,40,0,40" VerticalOptions="FillAndExpand">
+                    <Image Source="xamarin_logo.png" VerticalOptions="Center" HeightRequest="64" />
+                </ContentView>
+            </StackLayout>
+        </StackLayout>
+        <ScrollView Grid.Row="1">
+            <CarouselView ItemsSource="{Binding Fruits}"
+                          Position="{Binding FruitPosition}"
+                          CurrentItem="{Binding CurrentFruit}">
+                <CarouselView.ItemTemplate>
+                    <DataTemplate>
+                        <Label Text="{Binding}" FontSize="Large" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" TextColor="Blue" BackgroundColor="DarkOrange"/>
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
+        </ScrollView>
+    </Grid>
+
+</ContentPage>
